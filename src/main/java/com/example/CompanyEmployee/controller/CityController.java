@@ -14,7 +14,7 @@ public class CityController {
     @Autowired private CityService cityService;
 
     @GetMapping("/{cityId}")
-    public City getCityById(@PathVariable Long cityId) {
+    public City findCityById(@PathVariable Long cityId) {
         return cityService.findCityById(cityId);
     }
     @GetMapping

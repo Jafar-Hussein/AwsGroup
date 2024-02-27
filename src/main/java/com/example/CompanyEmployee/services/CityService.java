@@ -19,11 +19,11 @@ public class CityService {
         return repository.saveAll(cities);
     }
 
-    public List <City> getCities () {
+    public List <City> findAllCities () {
         return repository.findAll();
     }
 
-    public City getCityById (long cityId) {
+    public City findCityById (long cityId) {
         return repository.findById(cityId).orElse(null);
     }
 

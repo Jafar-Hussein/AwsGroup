@@ -14,16 +14,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("")
+    public ResponseEntity<Iterable<User>> getAllUsers() {
+        Iterable<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<Iterable<User>> getAllUsers() {
-        Iterable<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
     }
 
     @PatchMapping("/{id}")

@@ -96,6 +96,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>Company-employee</finalName>
 	</build>
 
 </project>

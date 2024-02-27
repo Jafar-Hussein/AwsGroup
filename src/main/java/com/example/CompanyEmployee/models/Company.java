@@ -6,7 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+/**
+ * @Author Jafar Hussein
+ * @Class Company
+ * @Description: Denna klassen är en modell för företaget. Den innehåller attribut som id, företagsnamn, stad och en lista av anställda.
+ * @Realtion: Klassen har en ManyToOne-relation med City-klassen och en OneToMany-relation med Employee-klassen.
+ * */
 @Entity
 @Data
 @AllArgsConstructor

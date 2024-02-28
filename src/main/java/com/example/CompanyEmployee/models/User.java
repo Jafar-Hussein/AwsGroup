@@ -32,7 +32,7 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
-    public User(Long id, String username, String password, Set<Role> authorities) {
+    public User(Long id, String username, String password, Set<Role> authorities) {  //constructor
         this.userId = id;
         this.username = username;
         this.password = password;

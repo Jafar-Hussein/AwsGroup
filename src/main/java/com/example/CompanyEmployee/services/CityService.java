@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * CityService class
+ * Den här klassen är en serviceklass som innehåller metoder för att hantera städer.
+ * Den står för att utföra affärslogik och hantera CRUD-operationer.
+ */
 @Service
 public class CityService {
 
@@ -30,6 +35,7 @@ public class CityService {
 
     public City updateCity (City city) {
         City existingCity = repository.findById(city.getCityId()).orElse(null);
+        assert existingCity != null;
         existingCity.setCityName(city.getCityName());
         return repository.save(existingCity);
     }

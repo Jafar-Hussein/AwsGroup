@@ -7,6 +7,12 @@ import com.example.CompanyEmployee.services.CityService;
 
 import java.util.List;
 
+/**
+ * CityController class
+ * Den här klassen är en controller-klass som hanterar alla anrop för städer.
+ * Den här klassen innehåller metoder för att hämta, lägga till, uppdatera och ta bort städer.
+ * Den här klassen använder CityService för att utföra affärslogik.
+ */
 @RestController
 @RequestMapping("/city")
 public class CityController {

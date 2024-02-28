@@ -1,13 +1,13 @@
 package com.example.CompanyEmployee;
 
 import com.example.CompanyEmployee.models.Role;
+import com.example.CompanyEmployee.models.User;
 import com.example.CompanyEmployee.repository.RoleRepository;
 import com.example.CompanyEmployee.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
@@ -39,7 +39,8 @@ public class CompanyEmployeeApplication {
 
 			//Skapar en ny User-instans med användarnamnet "admin", ett krypterat lösenord och rollerna.
 			//Användaren sparas i databasen genom UserRepository.
-			User admin = new User(1L, "admin", passwordEncoder.encode("password"), roles);
+//			User admin = new User(1L, "admin", passwordEncoder.encode("password"), roles);
+			User admin = new User(1L,"admin", passwordEncoder.encode("password"), roles);
 			userRepository.save(admin);
 
 		};

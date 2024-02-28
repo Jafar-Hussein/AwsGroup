@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,8 +32,16 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
-    public User(long l, String username, String encryptedPassword, Set<Role> authorities) {
+    public User(Long id, String username, String password, Set<Role> authorities) {
+        this.userId = id;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
+    public User() {
+        super();
+        this.authorities = new HashSet<Role>();
     }
 
     public Long getUserId() {

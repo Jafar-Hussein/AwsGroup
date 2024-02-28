@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,4 +24,6 @@ public class Employee {
     private Company company;
     @ManyToOne
     private City city;
+    @OneToMany(mappedBy = "employee")
+    private List<User> users;
 }

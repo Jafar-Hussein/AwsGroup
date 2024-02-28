@@ -5,7 +5,17 @@ import com.example.CompanyEmployee.services.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+/**
+ * @Author Jafar
+ * @url http://localhost:8080/company
+ * @About denna klass har crud-metoder för skapa, läsa, uppdatera och radera företag.
+ * både admin och user(företaget) kan använda dessa metoder,
+ * @method getCompanyByName hämtar företag med hjälp av företagsnamn.
+ * @method getAllCompanies hämtar alla företag. admin kan använda denna metod.
+ * @method addCompany lägger till ett företag. admin kan använda denna metod.
+ * @method updateCompany uppdaterar ett företag med hjälp av id.
+ * @method deleteCompany raderar ett företag med hjälp av id.
+ * */
 @RestController
 @RequestMapping("/company")
 @RequiredArgsConstructor

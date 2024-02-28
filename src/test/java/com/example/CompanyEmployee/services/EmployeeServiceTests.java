@@ -1,6 +1,8 @@
 package com.example.CompanyEmployee.services;
 
+import com.example.CompanyEmployee.models.Company;
 import com.example.CompanyEmployee.models.Employee;
+import com.example.CompanyEmployee.models.User;
 import com.example.CompanyEmployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,12 +21,13 @@ public class EmployeeServiceTests {
     @Mock
     private EmployeeRepository employeeRepository;
     private EmployeeService employeeService;
-    private UserService UserService;
+    @Mock
+    private UserService userService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        employeeService = new EmployeeService(employeeRepository, UserService);
+        employeeService = new EmployeeService(employeeRepository, userService);
     }
 
     @Test
@@ -41,11 +44,21 @@ public class EmployeeServiceTests {
 
     @Test
     void getAllEmployees() {
-        when(employeeRepository.findAll()).thenReturn(Collections.emptyList());
+        // Mocking user with a company
+        Company company = new Company();
+        company.setId(1L);
+        company.setCompanyName("Example Company");
 
-        ResponseEntity<?> response = employeeService.getAllEmployees();
+        User user = new User();
+        user.setCompanies(Collections.singleton(company)); // Assuming user has only one company
 
-        assertEquals(ResponseEntity.badRequest().body("No employees found"), response);
+        when(userService.getCurrentUser()).thenReturn(user);
+
+        when(employeeRepository.findByCompanyCompanyName(company.getCompanyName())).thenReturn(Collections.emptyList());
+
+        ResponseEntity<?> response = employeeService.getEmployeesByCurrentCompany();
+
+        assertEquals(ResponseEntity.badRequest().body("No employees found for the current company"), response);
     }
 
     @Test

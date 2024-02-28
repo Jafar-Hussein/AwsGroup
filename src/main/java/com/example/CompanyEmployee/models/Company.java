@@ -26,4 +26,6 @@ public class Company {
     private City city;
     @OneToMany(mappedBy = "company")
     private List<Employee> employee;
+    @OneToMany(mappedBy = "company")
+    private List<User> users;
 }

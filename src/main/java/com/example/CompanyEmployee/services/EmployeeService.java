@@ -6,6 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+/**
+ * @Author Jafar Hussein
+ * @Class EmployeeService
+ * @Description: Denna klassen är en serviceklass för anställda, den kopplar ihop EmployeeRepository med EmployeeController.
+ * @method getEmployeeByName hämtar anställda med hjälp av anställdasnamn.
+ * @method addEmployee lägger till en anställd i databasen.
+ * @method getEmployeesByCurrentCompany hämtar alla anställda i databasen, använder den inloggade användaren och hämtar anställda från det företaget.
+ * @method updateEmployee uppdaterar en sparad anställd i databasen med hjälp av id.
+ * @method deleteEmployee raderar en sparad anställd i databasen med hjälp av id.
+ * */
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
@@ -16,11 +27,18 @@ public class EmployeeService {
         return employeeRepository.findByFirstName(employeeName).orElseThrow(() -> new RuntimeException("Employee not found")).getFirstName();
     }
 
-    public ResponseEntity<?> getAllEmployees() {
-        if (employeeRepository.findAll().isEmpty()) {
-            return ResponseEntity.badRequest().body("No employees found");
+    public ResponseEntity<?> getEmployeesByCurrentCompany() {
+        // Get the current user's company
+        String currentCompanyName = userService.getCurrentUser().getCompany().getCompanyName();
+
+        // Get employees of the current company
+        List<Employee> employees = employeeRepository.findByCompanyCompanyName(currentCompanyName);
+
+        if (employees.isEmpty()) {
+            return ResponseEntity.badRequest().body("No employees found for the current company");
         }
-        return ResponseEntity.ok(employeeRepository.findAll());
+
+        return ResponseEntity.ok(employees);
     }
 
     public ResponseEntity<?> addEmployee(Employee employee) {
@@ -47,4 +65,5 @@ public class EmployeeService {
         }
         return ResponseEntity.badRequest().body("Employee not found");
     }
+
 }

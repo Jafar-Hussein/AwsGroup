@@ -31,6 +31,10 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
+    public User(long l, String username, String encryptedPassword, Set<Role> authorities) {
+
+    }
+
     public Long getUserId() {
         return userId;
     }

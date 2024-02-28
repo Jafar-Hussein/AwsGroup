@@ -2,16 +2,19 @@ package com.example.CompanyEmployee.controller;
 
 import com.example.CompanyEmployee.models.Employee;
 import com.example.CompanyEmployee.services.EmployeeService;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+/**
+ * @Author Jafar Hussein
+ * @url http://localhost:8080/employee
+ * @About denna klass har crud-metoder för skapa, läsa, uppdatera och radera anställda, både admin och user(företaget) kan använda dessa metoder,
+ * @method getEmployeeByName hämtar anställda med hjälp av anställdasnamn.
+ * @method addEmployee lägger till en anställd. både admin och user(företaget) kan använda denna metod.
+ * @method getAllEmployees hämtar alla anställda. admin kan använda denna metod.
+ * @method updateEmployee uppdaterar en anställd med hjälp av id.
+ * @method deleteEmployee raderar en anställd med hjälp av id.
+ * */
 @RestController
 @RequestMapping("/employee")
 @RequiredArgsConstructor
@@ -23,10 +26,10 @@ public class EmployeeController {
         return ResponseEntity.ok(employee);
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAllEmployees() {
-        return employeeService.getAllEmployees();
-    }
+//    @GetMapping("/getAll")
+//    public ResponseEntity<?> getAllEmployees() {
+//        return employeeService.getEmployeesByCurrentCompany();
+//    }
 
     @PostMapping("/add")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {

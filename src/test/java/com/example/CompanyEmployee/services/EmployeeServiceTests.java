@@ -43,7 +43,7 @@ public class EmployeeServiceTests {
     void getAllEmployees() {
         when(employeeRepository.findAll()).thenReturn(Collections.emptyList());
 
-        ResponseEntity<?> response = employeeService.getAllEmployees();
+        ResponseEntity<?> response = employeeService.getEmployeesByCurrentCompany();
 
         assertEquals(ResponseEntity.badRequest().body("No employees found"), response);
     }

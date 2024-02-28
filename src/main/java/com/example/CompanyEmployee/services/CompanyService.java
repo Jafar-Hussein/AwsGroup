@@ -5,7 +5,16 @@ import com.example.CompanyEmployee.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+/**
+ * @Author Jafar
+ * @Class CompanyService
+ * @Description: Denna klassen är en serviceklass för företag, den kopplar ihop CompanyRepository med CompanyController så att vi kan arbeta med databasen på ett smidigt sätt.
+ * @method getCompanyByName hämtar företag med hjälp av företagsnamn.
+ * @method getAllCompanies hämtar alla företag i databasen.
+ * @method addCompany lägger till ett företag i databasen.
+ * @method updateCompany uppdaterar ett företag i databasen med hjälp av id.
+ * @method deleteCompany raderar ett företag i databasen med hjälp av id.
+ * */
 @Service
 @RequiredArgsConstructor
 public class CompanyService {

@@ -26,10 +26,10 @@ public class EmployeeController {
         return ResponseEntity.ok(employee);
     }
 
-//    @GetMapping("/getAll")
-//    public ResponseEntity<?> getAllEmployees() {
-//        return employeeService.getEmployeesByCurrentCompany();
-//    }
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllEmployees() {
+        return employeeService.getEmployeesByCurrentCompany();
+    }
 
     @PostMapping("/add")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {

@@ -27,19 +27,19 @@ public class EmployeeService {
         return employeeRepository.findByFirstName(employeeName).orElseThrow(() -> new RuntimeException("Employee not found")).getFirstName();
     }
 
-//    public ResponseEntity<?> getEmployeesByCurrentCompany() {
-//        // Get the current user's company
-//        String currentCompanyName = userService.getCurrentUser().getCompany().getCompanyName();
-//
-//        // Get employees of the current company
-//        List<Employee> employees = employeeRepository.findByCompanyCompanyName(currentCompanyName);
-//
-//        if (employees.isEmpty()) {
-//            return ResponseEntity.badRequest().body("No employees found for the current company");
-//        }
-//
-//        return ResponseEntity.ok(employees);
-//    }
+    public ResponseEntity<?> getEmployeesByCurrentCompany() {
+        // Get the current user's company
+        String currentCompanyName = userService.getCurrentUser().getCompany().getCompanyName();
+
+        // Get employees of the current company
+        List<Employee> employees = employeeRepository.findByCompanyCompanyName(currentCompanyName);
+
+        if (employees.isEmpty()) {
+            return ResponseEntity.badRequest().body("No employees found for the current company");
+        }
+
+        return ResponseEntity.ok(employees);
+    }
 
     public ResponseEntity<?> addEmployee(Employee employee) {
         if (employeeRepository.findByFirstName(employee.getFirstName()).isPresent()) {

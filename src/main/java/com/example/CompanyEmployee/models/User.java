@@ -32,6 +32,11 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Employee> employees;
+    @OneToMany(mappedBy = "user")
+    private Set<Company> companies;
+
     public User(Long id, String username, String password, Set<Role> authorities) {  //constructor
         this.userId = id;
         this.username = username;
@@ -82,4 +87,15 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {return true;}
+
+
+    public Company getCompany() {
+        if (companies != null && !companies.isEmpty()) {
+            // Assuming a user can be associated with only one company
+            return companies.iterator().next();
+        } else {
+            return null; // Or throw an exception if you expect every user to have a company
+        }
+    }
+
 }

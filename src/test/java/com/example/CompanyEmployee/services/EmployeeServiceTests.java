@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,16 +51,26 @@ public class EmployeeServiceTests {
         company.setCompanyName("Example Company");
 
         User user = new User();
-        user.setCompanies(Collections.singleton(company)); // Assuming user has only one company
+        user.setCompany(company); // Set the company directly to the user
 
         when(userService.getCurrentUser()).thenReturn(user);
 
-        when(employeeRepository.findByCompanyCompanyName(company.getCompanyName())).thenReturn(Collections.emptyList());
+        // Mocking behavior of employeeRepository
+        Employee employee1 = new Employee();
+        employee1.setId(1L);
+        employee1.setFirstName("John");
+        employee1.setLastName("Doe");
+        employee1.setCompany(company); // Set the company for the employee
+
+        // Assuming there are some employees associated with the company
+        List<Employee> employees = Collections.singletonList(employee1);
+        when(employeeRepository.findByCompanyCompanyName(company.getCompanyName())).thenReturn(employees);
 
         ResponseEntity<?> response = employeeService.getEmployeesByCurrentCompany();
 
-        assertEquals(ResponseEntity.badRequest().body("No employees found for the current company"), response);
+        assertEquals(ResponseEntity.ok(employees), response);
     }
+
 
     @Test
     void addEmployee() {

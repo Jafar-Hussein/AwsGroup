@@ -89,13 +89,12 @@ public class User implements UserDetails {
     public boolean isEnabled() {return true;}
 
 
-    /*public Company getCompany() {
-        if (companies != null && !companies.isEmpty()) {
-            // Assuming a user can be associated with only one company
-            return companies.iterator().next();
-        } else {
-            return null; // Or throw an exception if you expect every user to have a company
+    public Company getCompany() {
+        if (company == null) {
+            throw new IllegalArgumentException("User does not have a company");
         }
-    }*/
+        return company;
+
+    }
 
 }

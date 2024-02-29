@@ -24,8 +24,8 @@ public class Company {
     private String companyName;
     @ManyToOne
     private City city;
+   @OneToOne
+    private User user;
     @OneToMany(mappedBy = "company")
-    private List<Employee> employee;
-    @OneToMany(mappedBy = "company")
-    private List<User> users;
+    private List<Employee> employees;
 }

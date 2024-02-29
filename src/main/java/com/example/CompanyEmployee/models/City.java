@@ -18,4 +18,11 @@ public class City {
     private long cityId;
     private String cityName;
 
+    @OneToMany(mappedBy = "city")
+    private List<Company> companies;
+
+    @OneToMany(mappedBy = "city")
+    private List<Employee> employees;
+
+
 }

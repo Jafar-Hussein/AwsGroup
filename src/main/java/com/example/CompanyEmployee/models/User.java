@@ -32,10 +32,18 @@ public class User implements UserDetails {
     )
     private Set<Role> authorities;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Employee> employees;
-    @OneToMany(mappedBy = "user")
-    private Set<Company> companies;
+    @OneToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
 
     public User(Long id, String username, String password, Set<Role> authorities) {  //constructor
         this.userId = id;
@@ -47,14 +55,6 @@ public class User implements UserDetails {
     public User() {
         super();
         this.authorities = new HashSet<Role>();
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Override
@@ -89,13 +89,13 @@ public class User implements UserDetails {
     public boolean isEnabled() {return true;}
 
 
-    public Company getCompany() {
+    /*public Company getCompany() {
         if (companies != null && !companies.isEmpty()) {
             // Assuming a user can be associated with only one company
             return companies.iterator().next();
         } else {
             return null; // Or throw an exception if you expect every user to have a company
         }
-    }
+    }*/
 
 }

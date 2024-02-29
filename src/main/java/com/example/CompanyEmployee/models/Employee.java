@@ -20,10 +20,13 @@ public class Employee {
     private String lastName;
     private String jobTitle;
     private double salary;
+
     @ManyToOne
     private Company company;
+
     @ManyToOne
     private City city;
+
     @OneToMany(mappedBy = "employee")
     private List<User> users;
 }

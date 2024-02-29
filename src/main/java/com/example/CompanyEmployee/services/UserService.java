@@ -1,5 +1,6 @@
 package com.example.CompanyEmployee.services;
 
+import com.example.CompanyEmployee.models.Role;
 import com.example.CompanyEmployee.models.User;
 import com.example.CompanyEmployee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,18 @@ public class UserService implements UserDetailsService {
         Optional<User> userOptional = userRepository.findByUsername(username);
         return userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
+
+    // Ändra användarens roll
+    public User changeRole(Long id, String role) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist"));
+
+        // skapa en ny roll och uppdatera användarens behörigheter med den nya rollen
+        Role newRole = new Role(role);
+        user.setAuthorities(Collections.singleton(newRole));
+        return userRepository.save(user);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

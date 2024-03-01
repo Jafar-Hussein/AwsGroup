@@ -35,10 +35,10 @@ public class AuthController {
         return authService.register(payload.getUsername(), payload.getPassword());
     }
 
-    /*@PostMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody RegistrationPayload payload) {
 
         return authService.login(payload.getUsername(), payload.getPassword());
-    }*/
+    }
 
 }

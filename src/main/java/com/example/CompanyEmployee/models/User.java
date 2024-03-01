@@ -1,9 +1,11 @@
 package com.example.CompanyEmployee.models;
 
+import com.example.CompanyEmployee.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collection;
 import java.util.HashSet;

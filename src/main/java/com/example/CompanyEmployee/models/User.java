@@ -9,6 +9,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Detta är en modellklassen för User.
+ * Den representerar User entiteten i databasen.
+ * @author Fredrik
+ */
 @Entity
 @Data
 @Table(name = "users")
@@ -45,6 +50,13 @@ public class User implements UserDetails {
     private Employee employee;
 
 
+    /**
+     * Detta är konstruktorn för User.
+     * @param id Användarens ID.
+     * @param username Användarens användarnamn.
+     * @param password Användarens lösenord.
+     * @param authorities Användarens roller.
+     */
     public User(Long id, String username, String password, Set<Role> authorities) {  //constructor
         this.userId = id;
         this.username = username;
@@ -52,39 +64,60 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * Standardkonstruktor för User.
+     */
     public User() {
         super();
         this.authorities = new HashSet<Role>();
     }
 
+    /**
+     * Denna metod används för att hämta användarens roller.
+     * @return Användarens roller.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {return this.authorities;}
 
-    public void setAuthorities(Set<Role> authorities) {
-        this.authorities = authorities;
-    }
-
+    /**
+     * Denna metod används för att hämta användarens lösenord.
+     * @return Användarens lösenord.
+     */
     @Override
     public String getPassword() {return this.password;}
 
-    public void setPassword(String password) {this.password = password;}
-
+    /**
+     * Denna metod används för att hämta användarens användarnamn.
+     * @return Användarens användarnamn.
+     */
     @Override
     public String getUsername() {return this.username;}
 
-    public void setUsername(String username) {this.username = username;}
-
-    public Set<Role> getRoles() {return this.authorities;}
-
+    /**
+     * Denna metod används för att kontrollera om användarens konto inte har löpt ut.
+     * @return True om kontot inte har löpt ut, annars false.
+     */
     @Override
     public boolean isAccountNonExpired() {return true;}
 
+    /**
+     * Denna metod används för att kontrollera om användarens konto inte är låst.
+     * @return True om kontot inte är låst, annars false.
+     */
     @Override
     public boolean isAccountNonLocked() {return true;}
 
+    /**
+     * Denna metod används för att kontrollera om användarens referenser inte har löpt ut.
+     * @return True om referenserna inte har löpt ut, annars false.
+     */
     @Override
     public boolean isCredentialsNonExpired() {return true;}
 
+    /**
+     * Denna metod används för att kontrollera om användaren är aktiverad.
+     * @return True om användaren är aktiverad, annars false.
+     */
     @Override
     public boolean isEnabled() {return true;}
 

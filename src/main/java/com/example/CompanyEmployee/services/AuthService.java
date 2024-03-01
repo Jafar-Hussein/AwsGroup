@@ -77,19 +77,5 @@ public class AuthService {
         }
     }
 
-    public LoginResponse loginUser(String username, String password){
 
-        try{
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
-            );
-
-            String token = tokenService.generateJwt(auth);
-
-            return new LoginResponse(userRepository.findByUsername(username).get(), token);
-
-        } catch(AuthenticationException e){
-            return new LoginResponse(null, "");
-        }
-    }
 }

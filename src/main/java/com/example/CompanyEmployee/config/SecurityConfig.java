@@ -26,21 +26,36 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Detta är konfigurationsklassen för säkerhet.
+ * Den hanterar konfigurationen för webbsäkerhet.
+ * @author Fredrik
+ */
 @Configuration
 public class SecurityConfig {
 
     private final KeyProperties keys;
 
+    /**
+     * Konstruktor för SecurityConfig.
+     * @param keys Nycklarna som används för att skapa och verifiera JWTs.
+     */
     public SecurityConfig(KeyProperties keys) {
         this.keys = keys;
     }
 
+
+    /**
+     * Denna metod konfigurerar säkerhetsfilterkedjan.
+     * @param http HttpSecurity-objektet.
+     * @return En säkerhetsfilterkedja.
+     * @throws Exception Om ett fel uppstår under konfigurationen.
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
-                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/user/**").hasRole("ADMIN");
                     auth.requestMatchers("/city/**").hasRole("ADMIN");
                     auth.requestMatchers("/company/**").hasRole("ADMIN");
@@ -56,15 +71,29 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Denna metod skapar en JwtDecoder.
+     * @return En JwtDecoder.
+     */
     @Bean
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(this.keys.getPublicKey()).build();
     }
 
+    /**
+     * Denna metod skapar en PasswordEncoder.
+     * @return En PasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /**
+     * Denna metod skapar en AuthenticationManager.
+     * @param detailService UserDetailsService-objektet.
+     * @return En AuthenticationManager.
+     */
     @Bean
     public AuthenticationManager authManager(UserDetailsService detailService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
@@ -73,6 +102,10 @@ public class SecurityConfig {
         return new ProviderManager(daoProvider);
     }
 
+    /**
+     * Denna metod skapar en JwtEncoder.
+     * @return En JwtEncoder.
+     */
     @Bean
     public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(keys.getPublicKey()).privateKey(keys.getPrivateKey()).build();
@@ -80,6 +113,10 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 
+    /**
+     * Denna metod skapar en JwtAuthenticationConverter.
+     * @return En JwtAuthenticationConverter.
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();

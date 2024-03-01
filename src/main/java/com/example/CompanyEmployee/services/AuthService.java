@@ -77,19 +77,19 @@ public class AuthService {
         }
     }
 
-    public LoginResponse loginUser(String username, String password){
-
-        try{
+    //Skapade denna metod så länge för att kunna testa med postman//Fredrik
+    public ResponseEntity<LoginResponse> login(String username, String password) {
+        try {
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
-            );
-
+                    new UsernamePasswordAuthenticationToken(username, password));
             String token = tokenService.generateJwt(auth);
+            return ResponseEntity.ok(new LoginResponse(userRepository.findByUsername(username).get(), token));
 
-            return new LoginResponse(userRepository.findByUsername(username).get(), token);
-
-        } catch(AuthenticationException e){
-            return new LoginResponse(null, "");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new LoginResponse(null, ""));
         }
     }
+
+
 }

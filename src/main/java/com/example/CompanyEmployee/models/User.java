@@ -79,6 +79,8 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {return this.authorities;}
 
+
+
     /**
      * Denna metod används för att hämta användarens lösenord.
      * @return Användarens lösenord.

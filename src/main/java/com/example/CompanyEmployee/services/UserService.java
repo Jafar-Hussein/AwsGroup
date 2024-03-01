@@ -48,17 +48,27 @@ public class UserService implements UserDetailsService {
     /**
      * Denna metod används för att uppdatera en användare med dess ID.
      * @param id Användarens ID.
-     * @param user Den uppdaterade användaren.
+     * @param newUser Den uppdaterade användaren.
      * @return Den uppdaterade användaren.
      */
-    public User updateUser(Long id, User user) {
-        if (userRepository.existsById(id)) {
-            user.setUserId(id);
-            return userRepository.save(user);
-        }
-        else {
-            throw new IllegalArgumentException("User with id " + id + " does not exist");
-        }
+    public User updateUser(Long id, User newUser) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    if (newUser.getUsername() != null) {
+                        user.setUsername(newUser.getUsername());
+                    }
+                    if (newUser.getPassword() != null) {
+                        user.setPassword(newUser.getPassword());
+                    }
+                    if (newUser.getCompany() != null) {
+                        user.setCompany(newUser.getCompany());
+                    }
+                    if (newUser.getCity() != null) {
+                        user.setCity(newUser.getCity());
+                    }
+                    return userRepository.save(user);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist"));
     }
 
     /**
@@ -68,6 +78,7 @@ public class UserService implements UserDetailsService {
     public void deleteUser(Long id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
+            System.out.println("User with id: " + id + " removed");
         }
         else {
             throw new IllegalArgumentException("User with id " + id + " does not exist");
@@ -81,7 +92,7 @@ public class UserService implements UserDetailsService {
     public User getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> userOptional = userRepository.findByUsername(username);
-        return userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        return userOptional.orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
     }
 
     /**

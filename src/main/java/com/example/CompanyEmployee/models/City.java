@@ -24,5 +24,8 @@ public class City {
     @OneToMany(mappedBy = "city")
     private List<Employee> employees;
 
-
+    public City(long cityId, String cityName) {
+        this.cityId = cityId;
+        this.cityName = cityName;
+    }
 }

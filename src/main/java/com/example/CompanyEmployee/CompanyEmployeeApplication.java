@@ -1,7 +1,11 @@
 package com.example.CompanyEmployee;
 
+import com.example.CompanyEmployee.models.City;
+import com.example.CompanyEmployee.models.Company;
 import com.example.CompanyEmployee.models.Role;
 import com.example.CompanyEmployee.models.User;
+import com.example.CompanyEmployee.repository.CityRepository;
+import com.example.CompanyEmployee.repository.CompanyRepository;
 import com.example.CompanyEmployee.repository.RoleRepository;
 import com.example.CompanyEmployee.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +25,7 @@ public class CompanyEmployeeApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, CompanyRepository companyRepository, CityRepository cityRepository) {
 		return args -> {
 			//Kontrollerar om en roll med auktoriteten "ADMIN" redan finns i databasen.
 			// Om den finns, avslutas metoden tidigt och inget mer görs.
@@ -44,7 +48,25 @@ public class CompanyEmployeeApplication {
 
 			userRepository.save(admin);
 
+			//skapar städer
+			City stockholm = new City(1L, "Stockholm");
+			City gothenburg = new City(2L, "Göteborg");
+			City malmo = new City(3L, "Malmö");
 
+			//sparar städer
+			cityRepository.save(stockholm);
+			cityRepository.save(gothenburg);
+			cityRepository.save(malmo);
+
+
+			//Skapar färdigt företag
+			Company ica = new Company(1L, "Ica", stockholm);
+			Company coop = new Company(2L, "Coop", gothenburg);
+			Company cityGross = new Company(3L, "City Gross", malmo);
+			//sparar företag
+			companyRepository.save(ica);
+			companyRepository.save(coop);
+			companyRepository.save(cityGross);
 		};
 	}
 }

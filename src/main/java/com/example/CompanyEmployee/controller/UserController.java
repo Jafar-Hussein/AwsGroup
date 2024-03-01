@@ -52,6 +52,12 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @PatchMapping("/{id}/role/{roleId}")
+    public ResponseEntity<User> updateUserRole(@PathVariable Long id, @RequestParam Integer roleId) {
+        User updatedUser = userService.updateUserRole(id, roleId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
     /**
      * Denna metod används för att ta bort en användare med dess ID.
      * @param id Användarens ID.

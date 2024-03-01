@@ -28,4 +28,10 @@ public class Company {
     private User user;
     @OneToMany(mappedBy = "company")
     private List<Employee> employees;
+
+    public Company(Long id, String companyName, City city) {
+        this.id = id;
+        this.companyName = companyName;
+        this.city = city;
+    }
 }

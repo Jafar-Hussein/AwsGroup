@@ -89,12 +89,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {return true;}
 
 
-    public Company getCompany() {
-        if (company == null) {
-            throw new IllegalArgumentException("User does not have a company");
-        }
-        return company;
-
-    }
-
 }

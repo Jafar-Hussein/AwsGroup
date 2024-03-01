@@ -76,6 +76,5 @@ public class AuthService {
                     .body("Error during registration");
         }
     }
-
-
+    
 }

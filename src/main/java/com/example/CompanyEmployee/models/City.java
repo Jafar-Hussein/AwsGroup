@@ -1,5 +1,6 @@
 package com.example.CompanyEmployee.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +19,11 @@ public class City {
     private long cityId;
     private String cityName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<Company> companies;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<Employee> employees;
 

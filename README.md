@@ -66,4 +66,6 @@ Note that you need to have Java and Maven installed on your machine to be able t
 - **[Jafar Hussein](https://github.com/Jafar-Hussein)**
 - **[Fredrik Rinstad](https://github.com/fringston)**
 
-To learn more about our CI/CD pipeline, please refer to [CI/CD Process](CI_CD_PROCESS.md).
+### To learn more about our CI/CD pipeline, please refer to [CI/CD Process](CI_CD_PROCESS.md).
+
+## LICENSE

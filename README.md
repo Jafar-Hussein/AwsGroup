@@ -29,6 +29,15 @@ The goal of this project is to automate the build, test, and deployment process 
 - CI/CD Pipeline: The project implements a CI/CD pipeline on AWS, automating the build, test, and deployment process.
 - RESTful API: The application provides a RESTful API for client applications to interact with.
 
+## Dependencies:
+
+- Spring Web
+- Spring Security
+- Spring Data JPA
+- MySQL Driver
+- Lombok
+- OAuth2 Client
+- JUnit
 
 ## How to Run the Project
 

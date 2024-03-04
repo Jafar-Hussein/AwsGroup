@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
  * @method addCompany lägger till ett företag i databasen.
  * @method updateCompany uppdaterar ett företag i databasen med hjälp av id.
  * @method deleteCompany raderar ett företag i databasen med hjälp av id.
+ * @method getCompanyById hämtar företag med hjälp av id.
  * */
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,13 @@ public class CompanyService {
         return companyRepository.findByCompanyName(companyName).orElseThrow(() -> new RuntimeException("Company not found")).getCompanyName();
     }
 
+    //get by id
+    public ResponseEntity<?> getCompanyById(Long id) {
+        if (companyRepository.findCompanyById(id).isPresent()) {
+            return ResponseEntity.ok(companyRepository.findCompanyById(id));
+        }
+        return ResponseEntity.badRequest().body("Company not found");
+    }
     public ResponseEntity<?> getAllCompanies() {
         if (companyRepository.findAll().isEmpty()) {
             return ResponseEntity.badRequest().body("No companies found");

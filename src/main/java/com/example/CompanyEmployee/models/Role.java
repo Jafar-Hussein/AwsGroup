@@ -3,6 +3,13 @@ package com.example.CompanyEmployee.models;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * Role model class
+ * Den här klassen är en modell för rollen som används i säkerhetskonfigurationen.
+ * Den har en roll_id och en behörighet.
+ * Den implementerar GrantedAuthority som är en del av Spring Security.
+ * @Athor Clara Brorson
+ */
 @Entity
 @Table(name="roles")
 public class Role implements GrantedAuthority {

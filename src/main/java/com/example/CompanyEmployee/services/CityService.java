@@ -11,6 +11,7 @@ import java.util.List;
  * CityService class
  * Den här klassen är en serviceklass som innehåller metoder för att hantera städer.
  * Den står för att utföra affärslogik och hantera CRUD-operationer.
+ * @Author Clara Brorson
  */
 @Service
 public class CityService {

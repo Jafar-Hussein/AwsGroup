@@ -17,6 +17,15 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+/**
+ * CityServiceTests
+ * Den här klassen innehåller enhetstester för CityService-klassen.
+ * Vi använder Mockito för att mocka CityRepository.
+ * Vi testar alla metoder i CityService-klassen.
+ * @Mock: Skapar en mock för CityRepository.
+ * @BeforeEach: Annotering som anger att MockitoAnnotations.initMocks(this) ska köras innan varje testmetod.
+ * @Author Clara Brorson
+ */
 public class CityServiceTests {
 
     @Mock

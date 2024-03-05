@@ -18,6 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Den här klassen innehåller enhetstester för EmployeeService-klassen.
+ * Vi använder Mockito för att mocka EmployeeRepository och UserService.
+ * Metoderna i EmployeeService-klassen testas för att säkerställa att de returnerar förväntade värden.
+ * @Mock: Skapar en mock för EmployeeRepository och UserService.
+ * @BeforeEach: Annotering som anger att MockitoAnnotations.initMocks(this) ska köras innan varje testmetod.
+ * @Author Clara Brorson
+ */
 public class EmployeeServiceTests {
     @Mock
     private EmployeeRepository employeeRepository;
@@ -45,24 +53,23 @@ public class EmployeeServiceTests {
 
     @Test
     void getAllEmployees() {
-        // Mocking user with a company
+
         Company company = new Company();
         company.setId(1L);
         company.setCompanyName("Example Company");
 
         User user = new User();
-        user.setCompany(company); // Set the company directly to the user
+        user.setCompany(company);
 
         when(userService.getCurrentUser()).thenReturn(user);
 
-        // Mocking behavior of employeeRepository
         Employee employee1 = new Employee();
         employee1.setId(1L);
         employee1.setFirstName("John");
         employee1.setLastName("Doe");
-        employee1.setCompany(company); // Set the company for the employee
+        employee1.setCompany(company);
 
-        // Assuming there are some employees associated with the company
+
         List<Employee> employees = Collections.singletonList(employee1);
         when(employeeRepository.findByCompanyCompanyName(company.getCompanyName())).thenReturn(employees);
 

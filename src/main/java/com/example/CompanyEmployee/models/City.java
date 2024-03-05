@@ -8,6 +8,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * City model
+ * Den här klassen är en modell för städer
+ * @Entity används för att mappa klassen till en tabell i databasen
+ * @Table används för att ange tabellnamnet i databasen
+ * @Data är en Lombok-annotation som genererar boilerplate-kod som getter, setter, equals, hashCode och toString
+ * @Author Clara Brorson
+ */
 @Entity
 @Table(name="cities")
 @Data

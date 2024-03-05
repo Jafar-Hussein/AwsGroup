@@ -17,7 +17,7 @@ import java.util.List;
  * @Author Clara Brorson
  */
 @Entity
-@Table(name="cities")
+@Table(name = "cities")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,6 +37,10 @@ public class City {
 
     public City(long cityId, String cityName) {
         this.cityId = cityId;
+        this.cityName = cityName;
+    }
+
+    public City(String cityName) {
         this.cityName = cityName;
     }
 }

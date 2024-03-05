@@ -60,9 +60,9 @@ public class CompanyEmployeeApplication {
 
 
 			//Skapar färdigt företag
-			Company ica = new Company(1L, "Ica", stockholm);
-			Company coop = new Company(2L, "Coop", gothenburg);
-			Company cityGross = new Company(3L, "City Gross", malmo);
+			Company ica = new Company("Ica", stockholm);
+			Company coop = new Company( "Coop", gothenburg);
+			Company cityGross = new Company( "City Gross", malmo);
 			//sparar företag
 			companyRepository.save(ica);
 			companyRepository.save(coop);

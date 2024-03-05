@@ -1,11 +1,14 @@
 package com.example.CompanyEmployee.services;
 
 import com.example.CompanyEmployee.models.Company;
+import com.example.CompanyEmployee.models.User;
+import com.example.CompanyEmployee.repository.CityRepository;
 import com.example.CompanyEmployee.repository.CompanyRepository;
 import com.example.CompanyEmployee.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
@@ -18,24 +21,30 @@ class CompanyServiceTest {
 
     @Mock
     private CompanyRepository companyRepository;
+    @Mock
+    private UserRepository userRepository;
     private CompanyService companyService;
+    private CityRepository cityRepository;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        companyService = new CompanyService(companyRepository);
+        companyService = new CompanyService(companyRepository, userRepository, cityRepository);
     }
 
     @Test
     void getCompanyByName() {
-        // arrange
+        // Arrange
         String expectedCompanyName = "Company";
         Company company = new Company();
         company.setCompanyName(expectedCompanyName);
-        when(companyRepository.findByCompanyName(expectedCompanyName)).thenReturn(Optional.of(company));
-        // act
-        String actualCompanyName = companyService.getCompanyByName(expectedCompanyName);
-        // assert
-        assertEquals(expectedCompanyName, actualCompanyName);
+        Mockito.when(companyRepository.findByCompanyName(expectedCompanyName)).thenReturn(Optional.of(company));
+
+        // Act
+        Company actualCompany = companyService.getCompanyByName(expectedCompanyName);
+
+        // Assert
+        assertEquals(expectedCompanyName, actualCompany.getCompanyName());
     }
 
     @Test
@@ -52,14 +61,15 @@ class CompanyServiceTest {
     void addCompany() {
         // arrange
         Company company = new Company();
+        User user = new User(); // Create a dummy user object
         when(companyRepository.findByCompanyName(any())).thenReturn(Optional.empty());
+        when(userRepository.save(any())).thenReturn(user); // Mocking the behavior of userRepository
         // act
         ResponseEntity<?> response = companyService.addCompany(company);
         // assert
         assertEquals(ResponseEntity.ok("Company added successfully"), response);
         verify(companyRepository, times(1)).save(company);
     }
-
     @Test
     void updateCompany() {
         // arrange

@@ -45,6 +45,16 @@ public class SecurityConfig {
     }
 
 
+    private static final String[] SWAGGER_WHITE_LIST = {"/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**"};
+
+
     /**
      * Denna metod konfigurerar säkerhetsfilterkedjan.
      * @param http HttpSecurity-objektet.
@@ -55,6 +65,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.GET, SWAGGER_WHITE_LIST).permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/user/**").hasRole("ADMIN");
                     auth.requestMatchers("/city/**").hasRole("ADMIN");

@@ -1,7 +1,9 @@
 package com.example.CompanyEmployee.controller;
 
 import com.example.CompanyEmployee.models.Company;
+import com.example.CompanyEmployee.models.User;
 import com.example.CompanyEmployee.services.CompanyService;
+import com.example.CompanyEmployee.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +23,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CompanyController {
     private final CompanyService companyService;
+    private final UserService userService;
     @GetMapping("/getByName")
-   public ResponseEntity<String> getCompanyByName(@RequestBody String companyName) {
-        String company = companyService.getCompanyByName(companyName);
+    public ResponseEntity<Company> getCompanyByName(@RequestParam String name) {
+        Company company = companyService.getCompanyByName(name);
         return ResponseEntity.ok(company);
     }
+
 
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllCompanies() {
@@ -34,8 +38,11 @@ public class CompanyController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addCompany(@RequestBody Company company) {
+        // Call the service method to add the company
         return companyService.addCompany(company);
     }
+
+
 
     @PatchMapping("/update/{id}")
     public ResponseEntity<?> updateCompany(@PathVariable Long id, @RequestBody Company company) {

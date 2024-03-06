@@ -43,4 +43,8 @@ public class City {
     public City(String cityName) {
         this.cityName = cityName;
     }
+
+    public Long getId() {
+        return cityId;
+    }
 }

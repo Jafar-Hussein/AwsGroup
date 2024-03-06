@@ -97,10 +97,12 @@ public class CityServiceTests {
     @Test
     void deleteCity() {
 
+        when(cityRepository.existsById(anyLong())).thenReturn(true);
         doNothing().when(cityRepository).deleteById(anyLong());
 
         String result = cityService.deleteCity(1L);
 
         assertEquals("City removed:1", result);
     }
+
 }

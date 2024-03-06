@@ -29,7 +29,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CompanyService {
     private final CompanyRepository companyRepository;
-    private final UserRepository userRepository;
     private final CityRepository cityRepository;
 
     public Company getCompanyByName(String companyName) {

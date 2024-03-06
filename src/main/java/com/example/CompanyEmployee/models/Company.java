@@ -1,6 +1,7 @@
 package com.example.CompanyEmployee.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,8 @@ public class Company {
     @JsonIgnore
    @OneToOne
     private User user;
-    @OneToMany(mappedBy = "company")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 
     public Company(Long companyId, String companyName, City city) {

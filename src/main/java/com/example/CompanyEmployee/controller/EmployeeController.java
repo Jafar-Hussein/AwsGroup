@@ -1,10 +1,16 @@
 package com.example.CompanyEmployee.controller;
 
 import com.example.CompanyEmployee.models.Employee;
+import com.example.CompanyEmployee.models.EmployeeDTO;
 import com.example.CompanyEmployee.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @Author Jafar Hussein
  * @url http://localhost:8080/employee
@@ -21,15 +27,24 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
     private final EmployeeService employeeService;
     @GetMapping("/getByName")
-    public ResponseEntity<String> getEmployeeByName(@RequestBody String employeeName) {
-        String employee = employeeService.getEmployeeByName(employeeName);
+    public ResponseEntity<Employee> getEmployeeByName(@RequestParam String firstName) {
+        Employee employee = employeeService.getEmployeeByName(firstName);
         return ResponseEntity.ok(employee);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<?> getAllEmployees() {
-        return employeeService.getEmployeesByCurrentCompany();
+    public List<EmployeeDTO> getAllEmployees() {
+        try {
+            List<EmployeeDTO> employeeDTOs = employeeService.getAllEmployees();
+            return employeeDTOs;
+        } catch (Exception e) {
+            // Handle the exception if needed
+            e.printStackTrace(); // Print the stack trace for debugging
+            return Collections.emptyList(); // Return an empty list or handle the exception accordingly
+        }
     }
+
+
 
     @PostMapping("/add")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
@@ -37,9 +52,13 @@ public class EmployeeController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
+       EmployeeDTO employee = employeeDTO;
         return employeeService.updateEmployee(id, employee);
     }
+
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
         return employeeService.deleteEmployee(id);

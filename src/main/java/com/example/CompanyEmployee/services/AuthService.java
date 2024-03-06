@@ -77,7 +77,6 @@ public class AuthService {
         }
     }
 
-    //Skapade denna metod så länge för att kunna testa med postman//Fredrik
     public ResponseEntity<LoginResponse> login(String username, String password) {
         try {
             Authentication auth = authenticationManager.authenticate(

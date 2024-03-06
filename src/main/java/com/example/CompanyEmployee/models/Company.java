@@ -1,5 +1,6 @@
 package com.example.CompanyEmployee.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,9 @@ public class Company {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long companyId;
     private String companyName;
-    @ManyToOne
+    @ManyToOne()
     private City city;
+    @JsonIgnore
    @OneToOne
     private User user;
     @OneToMany(mappedBy = "company")
@@ -31,6 +33,10 @@ public class Company {
 
     public Company(Long companyId, String companyName, City city) {
         this.companyId = companyId;
+        this.companyName = companyName;
+        this.city = city;
+    }
+    public Company( String companyName, City city) {
         this.companyName = companyName;
         this.city = city;
     }

@@ -20,7 +20,7 @@ import java.util.List;
 public class Company {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Long companyId;
     private String companyName;
     @ManyToOne
     private City city;
@@ -29,8 +29,8 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Employee> employees;
 
-    public Company(Long id, String companyName, City city) {
-        this.id = id;
+    public Company(Long companyId, String companyName, City city) {
+        this.companyId = companyId;
         this.companyName = companyName;
         this.city = city;
     }

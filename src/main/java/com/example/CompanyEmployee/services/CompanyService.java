@@ -26,9 +26,9 @@ public class CompanyService {
     }
 
     //get by id
-    public ResponseEntity<?> getCompanyById(Long id) {
-        if (companyRepository.findCompanyById(id).isPresent()) {
-            return ResponseEntity.ok(companyRepository.findCompanyById(id));
+    public ResponseEntity<?> getCompanyById(Long companyId) {
+        if (companyRepository.findCompanyByCompanyId(companyId).isPresent()) {
+            return ResponseEntity.ok(companyRepository.findCompanyByCompanyId(companyId));
         }
         return ResponseEntity.badRequest().body("Company not found");
     }
@@ -49,7 +49,7 @@ public class CompanyService {
 
     public ResponseEntity<?> updateCompany(Long id, Company company) {
         if (companyRepository.existsById(id)) {
-            company.setId(id);
+            company.setCompanyId(id);
             companyRepository.save(company);
             return ResponseEntity.ok("Company updated successfully");
         }

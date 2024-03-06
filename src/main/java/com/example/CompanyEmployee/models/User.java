@@ -1,6 +1,7 @@
 package com.example.CompanyEmployee.models;
 
 import com.example.CompanyEmployee.repository.UserRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

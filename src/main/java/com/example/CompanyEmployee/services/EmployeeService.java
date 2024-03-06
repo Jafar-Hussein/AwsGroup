@@ -51,7 +51,7 @@ public class EmployeeService {
 
     public ResponseEntity<?> updateEmployee(Long id, Employee employee) {
         if (employeeRepository.existsById(id)) {
-            employee.setId(id);
+            employee.setEmployeeId(id);
             employeeRepository.save(employee);
             return ResponseEntity.ok("Employee updated successfully");
         }

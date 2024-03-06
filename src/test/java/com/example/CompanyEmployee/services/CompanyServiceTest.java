@@ -86,7 +86,7 @@ class CompanyServiceTest {
         // Arrange
         Long id = 1L;
         Company company = new Company();
-        company.setId(id);
+        company.setCompanyId(id);
         City city = new City("Stockholm");
         company.setCity(city); // Set a non-null city object
 

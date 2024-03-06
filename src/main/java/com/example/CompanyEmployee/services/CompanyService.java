@@ -54,24 +54,26 @@ public class CompanyService {
     public ResponseEntity<?> addCompany(Company company) {
         // Kontrollera om företaget redan finns
         if (companyRepository.findByCompanyName(company.getCompanyName()).isPresent()) {
-            return ResponseEntity.badRequest().body("Företaget finns redan");
+            return ResponseEntity.badRequest().body("Company already exists");
         }
 
         // Kontrollera om staden redan finns
         City existingCity = cityRepository.findByCityName(company.getCity().getCityName());
-        if (existingCity == null) {
-            // Om staden inte finns, skapa en ny
-            existingCity = cityRepository.save(company.getCity());
+        if (existingCity != null) {
+            // Om staden redan finns, sätt den i företaget
+            company.setCity(existingCity);
+        } else {
+            // Om staden inte finns, returnera felmeddelande
+            return ResponseEntity.badRequest().body("City not found");
         }
-
-        // Ange staden för företaget
-        company.setCity(existingCity);
 
         // Spara företaget
         companyRepository.save(company);
 
         return ResponseEntity.ok("Company added successfully");
     }
+
+
 
 
 

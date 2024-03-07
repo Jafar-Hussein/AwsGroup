@@ -20,6 +20,9 @@ The goal of this project is to automate the build, test, and deployment process 
 This project is also about practicing the use of cloud services.
 Besides learning new technologies and services, the project also aims to practices collaboration with another development team to create a client for each other's web service.
 
+## API Documentation
+
+To learn more about the Restful API and the endpoints, please run the application and navigate to the following URL: http://localhost:5000/swagger-ui/index.html#/
 
 ## Technologies and Tools
 

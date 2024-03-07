@@ -1,7 +1,11 @@
 package com.example.CompanyEmployee.services;
 
+import com.example.CompanyEmployee.models.City;
+import com.example.CompanyEmployee.models.Company;
 import com.example.CompanyEmployee.models.Role;
 import com.example.CompanyEmployee.models.User;
+import com.example.CompanyEmployee.repository.CityRepository;
+import com.example.CompanyEmployee.repository.CompanyRepository;
 import com.example.CompanyEmployee.repository.RoleRepository;
 import com.example.CompanyEmployee.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -26,11 +30,14 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder encoder;
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private CityRepository cityRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     /**
      * Denna metod används för att hämta alla användare.
@@ -61,13 +68,17 @@ public class UserService implements UserDetailsService {
                         user.setUsername(newUser.getUsername());
                     }
                     if (newUser.getPassword() != null) {
-                        user.setPassword(newUser.getPassword());
+                        user.setPassword(encoder.encode(newUser.getPassword()));
                     }
                     if (newUser.getCompany() != null) {
-                        user.setCompany(newUser.getCompany());
+                        Company company = companyRepository.findById(newUser.getCompany().getCompanyId())
+                                .orElseThrow(() -> new IllegalArgumentException("Company with id " + newUser.getCompany().getCompanyId() + " does not exist"));
+                        user.setCompany(company);
                     }
                     if (newUser.getCity() != null) {
-                        user.setCity(newUser.getCity());
+                        City city = cityRepository.findById(newUser.getCity().getCityId())
+                                .orElseThrow(() -> new IllegalArgumentException("City with id " + newUser.getCity().getCityId() + " does not exist"));
+                        user.setCity(city);
                     }
                     return userRepository.save(user);
                 })

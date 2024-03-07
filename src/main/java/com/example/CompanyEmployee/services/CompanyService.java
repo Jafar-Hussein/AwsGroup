@@ -39,8 +39,8 @@ public class CompanyService {
 
     //get by id
     public ResponseEntity<?> getCompanyById(Long id) {
-        if (companyRepository.findCompanyById(id).isPresent()) {
-            return ResponseEntity.ok(companyRepository.findCompanyById(id));
+        if (companyRepository.findCompanyByCompanyId(id).isPresent()) {
+            return ResponseEntity.ok(companyRepository.findCompanyByCompanyId(id));
         }
         return ResponseEntity.badRequest().body("Company not found");
     }

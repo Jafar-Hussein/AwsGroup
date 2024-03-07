@@ -1,5 +1,7 @@
 package com.example.CompanyEmployee.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,18 +17,18 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Long employeeId;
     private String firstName;
     private String lastName;
     private String jobTitle;
     private double salary;
-
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne()
     private Company company;
 
-    @ManyToOne
+    @ManyToOne()
     private City city;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "employee")
     private List<User> users;
 }

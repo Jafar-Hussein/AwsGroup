@@ -2,6 +2,7 @@ package com.example.CompanyEmployee.controller;
 
 import com.example.CompanyEmployee.models.User;
 import com.example.CompanyEmployee.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,12 @@ public class UserController {
      * @param id Användarens ID.
      * @param user Den uppdaterade användaren.
      * @return Den uppdaterade användaren.
+     *  * Notera: Även om alla fält visas i request bodyn, kan endast 'username', 'password', 'company' och 'city' ändras.
      */
+    @Operation(
+            description = "Notera: Även om alla fält visas i request bodyn, kan endast 'username', 'password', 'company' och 'city' ändras. " +
+                    "Alla dessa fält är dock valfria. Man kan välja att uppdatera alla, vissa eller inga av dem."
+    )
     @PatchMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         User updatedUser = userService.updateUser(id, user);

@@ -21,6 +21,13 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Den här klassen används för att registrera en användare och logga in en användare.
+ * Klassen använder UserRepository och RoleRepository för att spara användaren i databasen.
+ * Klassen använder också PasswordEncoder för att kryptera användarens lösenord.
+ * Klassen använder också AuthenticationManager för att autentisera användaren.
+ * @Author Clara Brorson
+ */
 @Service
 @Transactional // behövs ej?
 @RequiredArgsConstructor
@@ -70,19 +77,18 @@ public class AuthService {
         }
     }
 
-    public LoginResponse loginUser(String username, String password){
-
-        try{
+    public ResponseEntity<LoginResponse> login(String username, String password) {
+        try {
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
-            );
-
+                    new UsernamePasswordAuthenticationToken(username, password));
             String token = tokenService.generateJwt(auth);
+            return ResponseEntity.ok(new LoginResponse(userRepository.findByUsername(username).get(), token));
 
-            return new LoginResponse(userRepository.findByUsername(username).get(), token);
-
-        } catch(AuthenticationException e){
-            return new LoginResponse(null, "");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new LoginResponse(null, ""));
         }
     }
+
+
 }

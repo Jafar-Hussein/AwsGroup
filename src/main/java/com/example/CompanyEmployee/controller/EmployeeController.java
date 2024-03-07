@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @Author Jafar Hussein
- * @url http://localhost:8080/employee
+ * @url http://localhost:5000/employee
  * @About denna klass har crud-metoder för skapa, läsa, uppdatera och radera anställda, både admin och user(företaget) kan använda dessa metoder,
  * @method getEmployeeByName hämtar anställda med hjälp av anställdasnamn.
  * @method addEmployee lägger till en anställd. både admin och user(företaget) kan använda denna metod.

@@ -29,49 +29,41 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CompanyService {
     private final CompanyRepository companyRepository;
-    private final UserRepository userRepository;
     private final CityRepository cityRepository;
 
     public Company getCompanyByName(String companyName) {
         return companyRepository.findByCompanyName(companyName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
     }
 
-
-    //get by id
-    public ResponseEntity<?> getCompanyById(Long id) {
-        if (companyRepository.findCompanyByCompanyId(id).isPresent()) {
-            return ResponseEntity.ok(companyRepository.findCompanyByCompanyId(id));
-        }
-        return ResponseEntity.badRequest().body("Company not found");
-    }
     public ResponseEntity<?> getAllCompanies() {
         if (companyRepository.findAll().isEmpty()) {
             return ResponseEntity.badRequest().body("No companies found");
         }
         return ResponseEntity.ok(companyRepository.findAll());
     }
-
     public ResponseEntity<?> addCompany(Company company) {
         // Kontrollera om företaget redan finns
         if (companyRepository.findByCompanyName(company.getCompanyName()).isPresent()) {
-            return ResponseEntity.badRequest().body("Företaget finns redan");
+            return ResponseEntity.badRequest().body("Company already exists");
         }
 
         // Kontrollera om staden redan finns
         City existingCity = cityRepository.findByCityName(company.getCity().getCityName());
-        if (existingCity == null) {
-            // Om staden inte finns, skapa en ny
-            existingCity = cityRepository.save(company.getCity());
+        if (existingCity != null) {
+            // Om staden redan finns, sätt den i företaget
+            company.setCity(existingCity);
+        } else {
+            // Om staden inte finns, returnera felmeddelande
+            return ResponseEntity.badRequest().body("City not found");
         }
-
-        // Ange staden för företaget
-        company.setCity(existingCity);
 
         // Spara företaget
         companyRepository.save(company);
 
         return ResponseEntity.ok("Company added successfully");
     }
+
+
 
 
 

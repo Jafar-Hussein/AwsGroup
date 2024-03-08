@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
  * Den här klassen är en modell för rollen som används i säkerhetskonfigurationen.
  * Den har en roll_id och en behörighet.
  * Den implementerar GrantedAuthority som är en del av Spring Security.
- * @Athor Clara Brorson
+ * @Author Clara Brorson
  */
 @Entity
 @Table(name="roles")

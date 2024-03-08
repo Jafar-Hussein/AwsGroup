@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 /**
  * @Author Jafar
- * @url http://localhost:8080/company
+ * @url http://localhost:5000/company
  * @About denna klass har crud-metoder för skapa, läsa, uppdatera och radera företag.
  * både admin och user(företaget) kan använda dessa metoder,
  * @method getCompanyByName hämtar företag med hjälp av företagsnamn.

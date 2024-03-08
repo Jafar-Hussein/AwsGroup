@@ -35,7 +35,12 @@ public class CompanyService {
         return companyRepository.findByCompanyName(companyName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
     }
 
-
+    public ResponseEntity<?> getAllCompanies() {
+        if (companyRepository.findAll().isEmpty()) {
+            return ResponseEntity.badRequest().body("No companies found");
+        }
+        return ResponseEntity.ok(companyRepository.findAll());
+    }
     public ResponseEntity<?> addCompany(Company company) {
         // Kontrollera om företaget redan finns
         if (companyRepository.findByCompanyName(company.getCompanyName()).isPresent()) {

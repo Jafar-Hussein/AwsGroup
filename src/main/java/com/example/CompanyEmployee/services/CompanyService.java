@@ -36,20 +36,6 @@ public class CompanyService {
     }
 
 
-    //get by id
-    public ResponseEntity<?> getCompanyById(Long id) {
-        if (companyRepository.findCompanyByCompanyId(id).isPresent()) {
-            return ResponseEntity.ok(companyRepository.findCompanyByCompanyId(id));
-        }
-        return ResponseEntity.badRequest().body("Company not found");
-    }
-    public ResponseEntity<?> getAllCompanies() {
-        if (companyRepository.findAll().isEmpty()) {
-            return ResponseEntity.badRequest().body("No companies found");
-        }
-        return ResponseEntity.ok(companyRepository.findAll());
-    }
-
     public ResponseEntity<?> addCompany(Company company) {
         // Kontrollera om företaget redan finns
         if (companyRepository.findByCompanyName(company.getCompanyName()).isPresent()) {

@@ -50,7 +50,6 @@ public class EmployeeService {
             employeeDTO.setSalary(employee.getSalary());
             employeeDTO.setCity(employee.getCity());
             employeeDTO.setCompany(employee.getCompany());
-            // Add more mappings if needed
 
             employeeDTOs.add(employeeDTO);
         }
@@ -61,48 +60,45 @@ public class EmployeeService {
 
 
     public ResponseEntity<?> addEmployee(Employee employee) {
-        // Check if the city already exists
         City existingCity = cityRepository.findByCityName(employee.getCity().getCityName());
         if (existingCity == null) {
-            // If the city doesn't exist, create a new one
             existingCity = cityRepository.save(employee.getCity());
         }
 
-        // Associate the city with the employee
+        // sätt staden i anställd
         employee.setCity(existingCity);
 
-        // Check if the company already exists
+        // kollla om företaget finns
         Optional<Company> optionalExistingCompany = companyRepository.findByCompanyName(employee.getCompany().getCompanyName());
         if (optionalExistingCompany.isEmpty()) {
-            // If the company doesn't exist, create a new one
+            // om företaget inte finns, skapa ett nytt
             Company existingCompany = companyRepository.save(employee.getCompany());
-            // Associate the company with the employee
             employee.setCompany(existingCompany);
         } else {
-            // If the company exists, use it
             Company existingCompany = optionalExistingCompany.get();
-            // Associate the company with the employee
+            // sätt företaget i anställd
             employee.setCompany(existingCompany);
         }
 
-        // Save the employee
+        // sparar anställd
         employeeRepository.save(employee);
 
         return ResponseEntity.ok("Employee added successfully");
     }
 
 
-    public ResponseEntity<?> updateEmployee(Long id, EmployeeDTO employeeDto) {
+    public ResponseEntity<?> updateEmployee(Long id, EmployeeDTO employeeDto) { // updatera anställd
+        // kolla om anställd finns
         if (employeeRepository.existsById(id)) {
+            // optional för att kolla om anställd finns
             Optional<Employee> optionalEmployee = employeeRepository.findById(id);
             if (optionalEmployee.isPresent()) {
+                // sätt nya värden
                 Employee employee = optionalEmployee.get();
                 employee.setFirstName(employeeDto.getFirstName());
                 employee.setLastName(employeeDto.getLastName());
                 employee.setJobTitle(employeeDto.getJobTitle());
                 employee.setSalary(employeeDto.getSalary());
-
-                // You may need to set city and company here as well, depending on your requirements
 
                 employeeRepository.save(employee);
                 return ResponseEntity.ok("Employee updated successfully");

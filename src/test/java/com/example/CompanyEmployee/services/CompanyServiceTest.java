@@ -23,15 +23,13 @@ class CompanyServiceTest {
     @Mock
     private CompanyRepository companyRepository;
     @Mock
-    private UserRepository userRepository;
-    @Mock
     private CityRepository cityRepository;
     private CompanyService companyService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        companyService = new CompanyService(companyRepository, userRepository, cityRepository);
+        companyService = new CompanyService(companyRepository, cityRepository);
     }
 
     @Test
@@ -66,11 +64,11 @@ class CompanyServiceTest {
         // Arrange
         Company company = new Company();
         company.setCompanyName("New Company");
-        company.setCity(new City("Stockholm")); // Assuming city is set
+        City city = new City("Stockholm"); // Assuming city is set
+        company.setCity(city); // Set the city for the company
 
         when(companyRepository.findByCompanyName(any())).thenReturn(Optional.empty());
-        when(cityRepository.findByCityName(any())).thenReturn(null); // Assuming city doesn't exist
-        when(cityRepository.save(any())).thenReturn(new City("Stockholm")); // Assuming city is saved successfully
+        when(cityRepository.findByCityName(any())).thenReturn(city);
         when(companyRepository.save(any())).thenReturn(company);
 
         // Act
@@ -81,18 +79,19 @@ class CompanyServiceTest {
         verify(companyRepository, times(1)).save(company);
     }
 
+
     @Test
     void updateCompany() {
         // Arrange
         Long id = 1L;
         Company company = new Company();
         company.setCompanyId(id);
-        City city = new City("Stockholm");
-        company.setCity(city); // Set a non-null city object
+        City city = new City("Stockholm"); // Set a non-null city object
+        company.setCity(city);
 
         when(companyRepository.findById(id)).thenReturn(Optional.of(company));
-        when(cityRepository.findByCityName(any())).thenReturn(null); // Assuming city doesn't exist
-        when(cityRepository.save(any())).thenReturn(new City("Stockholm")); // Assuming city is saved successfully
+        when(cityRepository.findByCityName(any())).thenReturn(city);
+        when(companyRepository.save(any())).thenReturn(company);
 
         // Act
         ResponseEntity<?> response = companyService.updateCompany(id, company);

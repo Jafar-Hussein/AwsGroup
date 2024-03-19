@@ -60,6 +60,21 @@ To run this project locally, follow these steps:
 3. Run `mvn clean install` to build the project
 4. Run `mvn spring-boot:run` to start the application
 
+## Configure the `application.properties` file:
+
+Open the `src/main/resources/application.properties` file and update the database connection information as follows:
+
+```properties
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
+spring.datasource.username=your_database_username
+spring.datasource.password=your_database_password
+
+# Spring Security Configuration
+# You may not need to modify these unless you have specific requirements
+spring.security.user.name=admin
+spring.security.user.password=password
+
 Note that you need to have Java and Maven installed on your machine to be able to run the project.
 
 ## Credits

@@ -11,7 +11,7 @@ The application is connected to a RDS MySQL database and uses Spring Data JPA to
 If the RDS MySQL database is not available, please create a MySQL database locally and update the application.properties file with the correct database URL, username, and password.
 
 Interaction with the application can be done by using a client application created by our fellow co-students or by using Postman.
-Please clone the client application from the following repository: ********
+Please clone the client application from the following repository: [Frontend repository](https://github.com/KoffaRn/AWSGroupClient)
 
 
 ## Goal
